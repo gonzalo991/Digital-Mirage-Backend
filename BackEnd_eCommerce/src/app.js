@@ -5,6 +5,9 @@ import pkj from '../package.json';
 import './database'
 import {createRoles} from './libs/initrialSetup'
 
+//import archivo rutas
+import userRoutes from './routes/user.routes'
+//
 const app = express();
 app.use(cors({
     origin:"*"
@@ -25,5 +28,8 @@ app.get('/', (req,res)=>{
     });
 })
 
+//llamo a la rutas
+ app.use('/user',userRoutes);
+ //
 
 export default app;
