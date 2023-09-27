@@ -3,13 +3,13 @@ import morgan from 'morgan';
 const cors = require('cors');
 import pkj from '../package.json';
 import './database'
-
+import {createRoles} from './libs/initrialSetup'
 
 const app = express();
 app.use(cors({
     origin:"*"
 }));
-
+createRoles();
 app.use(morgan('dev'));
 
 app.use(express.json());
