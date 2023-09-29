@@ -8,7 +8,8 @@ export const createRoles = async () => {
   
        const role1 = await new Role({name: "admin"}).save();
        const role2 = await new Role({name: "user"}).save();
-        console.log(role1,role2);
+        const role3 = await new Role({name: "client"}).save();
+        console.log(role1,role2, role3);
         }catch(error){
         console.log(error);
     }
