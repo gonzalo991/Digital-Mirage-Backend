@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 
 export const singnup = async (req, res )=>{
-    const { username, password, nombre, apellido, roles} = req.body;
-    
+    const { username, password, nombre, apellido, roles, email} = req.body;
+    const enable = true;
     const roleDB = await Roles.find({name : roles});
     console.log(roleDB);
      // creating a new User
@@ -13,7 +13,9 @@ export const singnup = async (req, res )=>{
         username,
         nombre,
         password,
-        apellido,       
+        apellido,
+        email, 
+        enable,      
         roles: roleDB.map((role) => role._id),
       });
   
@@ -37,7 +39,7 @@ export const singnin = async (req, res )=>{
     if (!passMach) return res.status(400).json({message: 'password incorrecto'});
     userFound.password = null;
     const token =  jwt.sign({id:userFound._id},config.SECRET,{expiresIn:86400});
-    userFound.token = token;
+    if (userFound.enable) userFound.token = token;
     res.json(userFound);     
   
     
