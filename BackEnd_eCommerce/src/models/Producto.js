@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-const clienteSchema = new Schema({
+const productoSchema = new Schema({
     categoria:{
         type: String,
         require: true,       
@@ -32,3 +32,4 @@ const clienteSchema = new Schema({
 
 },{timestamps:true ,
     versionKey:false});
+export default model("Producto", productoSchema);

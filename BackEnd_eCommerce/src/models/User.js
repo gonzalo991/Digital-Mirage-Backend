@@ -24,6 +24,11 @@ const userSchema = new Schema({
     },
     roles: [{ type: Schema.Types.ObjectId, ref: "Role" }],        
     
+     email:{
+        type: String,
+        require: true
+    },    
+    
     enable:{
         type: Boolean,
         require: true
