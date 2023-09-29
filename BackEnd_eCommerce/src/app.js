@@ -3,7 +3,7 @@ import morgan from 'morgan';
 const cors = require('cors');
 import pkj from '../package.json';
 import './database'
-import {createRoles} from './libs/initrialSetup'
+import {createRoles, createCategoria} from './libs/initrialSetup'
 
 //import archivo rutas
 import userRoutes from './routes/user.routes'
@@ -12,7 +12,8 @@ const app = express();
 app.use(cors({
     origin:"*"
 }));
-createRoles();
+createRoles();//inicializa roles
+createCategoria();//inicializa categorias
 app.use(morgan('dev'));
 
 app.use(express.json());
