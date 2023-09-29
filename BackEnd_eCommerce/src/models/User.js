@@ -22,7 +22,7 @@ const userSchema = new Schema({
         require: true
         
     },
-    roles: [{ type: Schema.Types.ObjectId, ref: "Role" }],        
+    roles: [{ type: Schema.Types.ObjectId, ref: "Roles" }],        
     
      email:{
         type: String,

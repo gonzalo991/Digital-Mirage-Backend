@@ -1,10 +1,6 @@
 import { Schema, model } from "mongoose";
 const productoSchema = new Schema({
-    categoria:{
-        type: String,
-        require: true,       
-        
-    },
+    categoria:[{ type: Schema.Types.ObjectId, ref: "Categoria" }], 
     modelo:{
         type: String,
         require: true

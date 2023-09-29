@@ -29,6 +29,7 @@ export const singnup = async (req, res )=>{
 }
 export const singnin = async (req, res )=>{
     const userFound = await User.findOne({username : req.body.username})
+                                .populate('roles');
                                                              
    
     if (!userFound) return res.status(400).json({message: 'username incorrecto'});
