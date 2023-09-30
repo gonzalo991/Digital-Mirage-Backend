@@ -34,19 +34,8 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Stop and Remove Existing Container
-      run: |
-        docker stop chiperos-node || true
-        docker rm chiperos-node || true
-
-    - name: Pull Docker image from Docker Hub
-      run: docker pull nicolaszelarayan/chiperos-node:$TAG
-
-    - name: Run Docker container on VM
-      run: |
-        docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:$TAG
-
-    - name: Cleanup Unused Docker Images
-      run: |
-        docker image prune -f
+        script: |
+          docker stop chiperos-node || true
+          docker rm chiperos-node || true
+          docker pull yourusername/chiperos-node:$TAG
+          docker run -d -p 3055:3055 --name chiperos-node yourusername/chiperos-node:$TAG
