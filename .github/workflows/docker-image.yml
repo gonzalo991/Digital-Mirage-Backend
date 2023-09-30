@@ -36,7 +36,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           TAG=${TAG}
-          docker stop chiperos-node || true
-          docker rm chiperos-node || true
           docker pull yourusername/chiperos-node:$TAG
           docker run -d -p 3055:3055 --name chiperos-node yourusername/chiperos-node:$TAG
