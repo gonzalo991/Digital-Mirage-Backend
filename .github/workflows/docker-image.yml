@@ -14,23 +14,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set TAG variable
+      run: echo "TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
     - name: Build the Docker image
       run: |
         cd ./BackEnd_eCommerce/
-        TAG=$(date +'%Y%m%d%H%M%S')
         docker build . --file Dockerfile --tag nicolaszelarayan/chiperos-node:$TAG
 
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Set TAG variable
-      run: TAG=$(date +'%Y%m%d%H%M%S')
-      env:
-        TAG: ${{ steps.set-tag.outputs.TAG }}
-
     - name: Push Docker image to Docker Hub
       run: docker push nicolaszelarayan/chiperos-node:$TAG
-
 
     - name: SSH into the Virtual Machine
       uses: appleboy/ssh-action@master
@@ -50,12 +46,12 @@ jobs:
         docker rm chiperos-node || true
 
     - name: Pull Docker image from Docker Hub
-      run: sudo docker pull nicolaszelarayan/chiperos-node:$COMMIT_SHA
+      run: docker pull nicolaszelarayan/chiperos-node:$TAG
 
     - name: Run Docker container on VM
       run: |
-        sudo docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:$COMMIT_SHA
+        docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:$TAG
 
     - name: Cleanup Unused Docker Images
       run: |
-        sudo docker image prune -f
+        docker image prune -f
