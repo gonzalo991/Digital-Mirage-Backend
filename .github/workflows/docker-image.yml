@@ -35,11 +35,6 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Install Docker on VM
-      run: |
-        sudo apt-get update
-        sudo apt-get install docker.io
-
     - name: Stop and Remove Existing Container
       run: |
         docker stop chiperos-node || true
