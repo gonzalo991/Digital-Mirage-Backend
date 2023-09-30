@@ -26,6 +26,7 @@ jobs:
         echo "COMMIT_SHA=$COMMIT_SHA" >> $GITHUB_ENV
 
     - name: Login to Docker Hub
+      run: |
         echo "832511nZ*" | docker login -u NicolasZelarayan --password-stdin
 
 
