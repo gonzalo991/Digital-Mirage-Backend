@@ -20,13 +20,13 @@ jobs:
     - name: Build the Docker image
       run: |
         cd ./BackEnd_eCommerce/
-        docker build . --file Dockerfile --tag nicolaszelarayan/chiperos-node:$TAG
+        docker build . --file Dockerfile --tag chiperos-node:$TAG
 
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image to Docker Hub
-      run: docker push nicolaszelarayan/chiperos-node:$TAG
+      run: docker push chiperos-node:$TAG
 
     - name: SSH into the Virtual Machine
       uses: appleboy/ssh-action@master
@@ -36,5 +36,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           TAG=${TAG}
-          docker pull nicolaszelarayan/chiperos-node:$TAG
-          docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:$TAG
+          docker pull chiperos-node:$TAG
+          docker run -d -p 3055:3055 --name chiperos-node chiperos-node:$TAG
