@@ -18,7 +18,7 @@ jobs:
       run: |
         cd ./BackEnd_eCommerce/
         COMMIT_SHA=$(git rev-parse --short HEAD)
-        docker build . --file Dockerfile --tag "chiperos-node:$COMMIT_SHA"
+        docker build . --file Dockerfile --tag chiperos-node:$COMMIT_SHA
 
     - name: Obtener SHA del commit
       run: |
@@ -31,7 +31,7 @@ jobs:
 
 
     - name: Push Docker image to Docker Hub
-      run: docker push "nicolaszelarayan/chiperos-node:$COMMIT_SHA"
+      run: docker push nicolaszelarayan/chiperos-node:$COMMIT_SHA
 
     - name: SSH into the Virtual Machine
       uses: appleboy/ssh-action@master
