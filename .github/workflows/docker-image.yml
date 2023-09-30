@@ -17,22 +17,15 @@ jobs:
     - name: Build the Docker image
       run: |
         cd ./BackEnd_eCommerce/
-        COMMIT_SHA=$(git rev-parse --short HEAD)
-        docker build . --file Dockerfile --tag chiperos-node:$COMMIT_SHA
-        docker images
-
-    - name: Obtener SHA del commit
-      run: |
-        COMMIT_SHA=$(git rev-parse --short HEAD)
-        echo "COMMIT_SHA=$COMMIT_SHA" >> $GITHUB_ENV
+        TAG=$(date +'%Y%m%d%H%M%S')
+        docker build . --file Dockerfile --tag nicolaszelarayan/chiperos-node:$TAG
 
     - name: Login to Docker Hub
-      run: |
-        echo "832511nZ*" | docker login -u nicolaszelarayan --password-stdin
-
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image to Docker Hub
-      run: docker push nicolaszelarayan/chiperos-node:$GITHUB_ENV
+      run: docker push nicolaszelarayan/chiperos-node:$TAG
+
 
     - name: SSH into the Virtual Machine
       uses: appleboy/ssh-action@master
