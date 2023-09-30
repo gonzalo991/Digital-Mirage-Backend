@@ -7,10 +7,49 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Build the Docker image
       run: |
-        cd ./BackEnd_eCommerce/ && docker build . --file Dockerfile --tag node-chiperos:$(date +%s)
+        cd ./BackEnd_eCommerce/
+        COMMIT_SHA=$(git rev-parse --short HEAD)
+        docker build . --file Dockerfile --tag chiperos-node:$COMMIT_SHA
+
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image to Docker Hub
+      run: docker push yourusername/chiperos-node:$COMMIT_SHA
+
+    - name: SSH into the Virtual Machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Docker on VM
+      run: |
+        sudo apt-get update
+        sudo apt-get install docker.io
+
+    - name: Stop and Remove Existing Container
+      run: |
+        docker stop chiperos-node || true
+        docker rm chiperos-node || true
+
+    - name: Pull Docker image from Docker Hub
+      run: docker pull nicolaszelarayan/chiperos-node:$COMMIT_SHA
+
+    - name: Run Docker container on VM
+      run: |
+        docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:$COMMIT_SHA
+
+    - name: Cleanup Unused Docker Images
+      run: |
+        docker image prune -f
