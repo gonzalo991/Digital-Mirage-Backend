@@ -34,7 +34,13 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          export TAG=${TAG}
+        script: export TAG=${TAG}
+    - name: SSH into the Virtual Machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: 
           docker pull nicolaszelarayan/chiperos-node:${TAG}
           docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:${TAG}
