@@ -32,7 +32,7 @@ jobs:
 
 
     - name: Push Docker image to Docker Hub
-      run: docker push nicolaszelarayan/chiperos-node:$COMMIT_SHA
+      run: docker push nicolaszelarayan/chiperos-node:$GITHUB_ENV
 
     - name: SSH into the Virtual Machine
       uses: appleboy/ssh-action@master
