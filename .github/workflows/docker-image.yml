@@ -1,0 +1,46 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set TAG variable
+      run: echo "TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+    - name: Build the Docker image
+      run: |
+        cd ./BackEnd_eCommerce/
+        docker build . --file Dockerfile --tag nicolaszelarayan/chiperos-node:$TAG
+
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image to Docker Hub
+      run: docker push nicolaszelarayan/chiperos-node:$TAG
+
+    - name: SSH into the Virtual Machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: export TAG=${TAG}
+    - name: SSH into the Virtual Machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: 
+          docker pull nicolaszelarayan/chiperos-node:${TAG}
+          docker run -d -p 3055:3055 --name chiperos-node nicolaszelarayan/chiperos-node:${TAG}

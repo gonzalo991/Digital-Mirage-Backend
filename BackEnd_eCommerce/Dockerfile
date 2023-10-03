@@ -10,11 +10,12 @@ COPY package*.json ./
 # Instala las dependencias del proyecto
 RUN npm install
 
-# Copia el resto de los archivos de la aplicación al directorio de trabajo
 COPY . .
+# Copia la carpeta "src" junto con los archivos fuente al directorio de trabajo
+COPY src/ ./src/
 
 # Expone el puerto en el que se ejecuta tu aplicación Node.js
 EXPOSE 3055
 
 # Comando para iniciar la aplicación
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start" ]
