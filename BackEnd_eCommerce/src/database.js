@@ -1,6 +1,7 @@
-const mongosse = require('mongoose');
-require('dotenv').config();
+const mongoose = require('mongoose');
 
-mongosse.connect(process.env.MONGO_URL)
-    .then(()=> console.log('Conectado a MongoDB Atlas'))
-    .catch((error)=> console.log(error))
+const mongoURL = 'mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority';
+
+mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conectado a MongoDB Atlas'))
+  .catch((error) => console.error('Error al conectar a MongoDB Atlas:', error));
