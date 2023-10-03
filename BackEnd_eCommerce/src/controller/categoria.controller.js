@@ -28,7 +28,7 @@ export const deleteCategorias = async (req, res )=>{
 
 }
 export const updateCategorias = async (req, res )=>{
-        const {_id, name} = req.body;        
+    const {_id, name} = req.body;        
     await Categoria.findByIdAndUpdate(_id, { name: name })
                 .then(()=> res.status(201).json({message : `Categoria ${name} actualizada`}))
                 .catch((error)=> res.json({message : error})) ; 
