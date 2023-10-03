@@ -12,7 +12,7 @@ const productoSchema = new Schema({
         index: { unique: true }         
     },
     descripcion:{
-        type: String,
+        type: Object,
         require: true
         
     },
