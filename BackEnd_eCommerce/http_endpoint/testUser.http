@@ -1,9 +1,10 @@
-@baseUrl = http://localhost:3055
+@baseUrl_local = http://localhost:3055
+@baseUrl_Remote = http://4.201.48.204:3055
 @authToken = {{login.response.body.token}}
 
 
 ///Usuarios
-POST  {{baseUrl}}/user/newuser
+POST  {{baseUrl_Remote}}/user/newuser
 Content-Type: application/json
 
 {
@@ -18,7 +19,7 @@ Content-Type: application/json
 ###
 ###
 # @name login
-POST {{baseUrl}}/user/login HTTP/1.1
+POST {{baseUrl_Remote}}/user/login HTTP/1.1
 Content-Type: application/json
 
 { 

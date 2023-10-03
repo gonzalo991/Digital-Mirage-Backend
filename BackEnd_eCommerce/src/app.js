@@ -11,9 +11,15 @@ import categoriasRoutes from './routes/categorias.router'
 import productosRoutes from './routes/producto.router'
 //
 const app = express();
-app.use(cors({
-    origin:"*"
-}));
+// app.use(cors({
+//     origin:"*"
+// }));
+app.use((req,res,next)=>{
+    res.setHeader('Acces-Control-Allow-Origin','*');
+    res.setHeader('Acces-Control-Allow-Methods','GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Acces-Control-Allow-Headers','Content-Type');
+    next();
+})
 createRoles();//inicializa roles
 createCategoria();//inicializa categorias
 app.use(morgan('dev'));
