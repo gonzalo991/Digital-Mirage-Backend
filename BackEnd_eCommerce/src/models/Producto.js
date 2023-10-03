@@ -12,7 +12,7 @@ const productoSchema = new Schema({
         index: { unique: true }         
     },
     descripcion:{
-        type: String,
+        type: Object,
         require: true
         
     },
@@ -24,6 +24,10 @@ const productoSchema = new Schema({
     precio:{
         type: Number,
         require: true
+    },
+    url_image:{
+        type: String,
+        require: true        
     }  
 
 },{timestamps:true ,

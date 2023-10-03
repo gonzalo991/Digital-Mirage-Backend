@@ -1,11 +1,12 @@
 import	Producto from '../models/Producto.js';
+import	Categoria from '../models/Categoria.js';
 
 export const newProducto = async (req, res )=>{
-        const {categoria, modelo, marca, descripcion, stock, precio} = req.body;
-        const categoriasDB = await Role.find({name : categoria});
+        const {categoria, modelo, marca, descripcion, stock, precio, url_image} = req.body;
+        const categoriasDB = await Categoria.find({name : categoria});
     
     
-     const produc = new Producto({    
+     let produc = new Producto({    
 
         modelo,
         marca,
@@ -13,8 +14,9 @@ export const newProducto = async (req, res )=>{
         stock,  
         precio,     
         categoria: categoriasDB.map((cat) => cat._id),
+        url_image
       });
-    let productExist = await produc.find({modelo: modelo})
+    let productExist = await Producto.find({modelo: modelo})
  
     if(!productExist.length == 0) return res.json({message: 'El modelo ya existe'})
     
@@ -24,23 +26,23 @@ export const newProducto = async (req, res )=>{
 }
 export const getProductos = async (req, res )=>{
     await Producto.find()
-                .populate('categorias')
+                .populate('categoria')
                 .then((data)=> res.json(data))
                 .catch((error)=> res.json({message : error})) 
 }
 export const getProductoById = async (req, res )=>{
      const {productoId} = req.params; 
-     await Producto.find(productoId)
-                .populate('categorias')
+     await Producto.findById(productoId)
+                .populate('categoria')
                 .then((data)=> res.json(data))
                 .catch((error)=> res.json({message : error})) 
 }
 export const getProductoByCategoria = async (req, res )=>{
-         const {categoria} = req.params; 
-          const busqueda = 
-        {categorias: { $in : categoria } };
-         await Producto.find(busqueda)
-                .populate('categorias')
+  const {categoria} = req.params;
+  const categoriaDB = await Categoria.find({name : categoria}); 
+  const busqueda = {categoria: categoriaDB } ;
+  await Producto.find(busqueda)
+                .populate('categoria')    
                 .then((data)=> res.json(data))
                 .catch((error)=> res.json({message : error})) 
 }
@@ -53,10 +55,31 @@ export const deleteProducto = async (req, res )=>{
 }
 export const updateProducto = async (req, res )=>{
     
-    const {productoId} = req.params;  
-    const productoSchema = new Producto(req.body);      
-    await Producto.findByIdAndUpdate(productoId,  productoSchema,{new:true})
-                .then(()=> res.status(201).json({message : `Producto ${productoSchema.modelo} actualizado`}))
+    const {_id,categoria, modelo, marca, descripcion, stock, precio, url_image} = req.body;
+     const categoriasDB = await Categoria.find({name : categoria}); 
+      // let produc = new Producto({    
+
+      //   modelo,
+      //   marca,
+      //   descripcion, 
+      //   stock,  
+      //   precio,     
+      //   categoria: categoriasDB.map((cat) => cat._id),
+      //   url_image
+      // });
+        
+    await Producto.findByIdAndUpdate(_id, 
+                                {$set:  
+                                  {modelo:modelo,
+                                  marca:marca,
+                                  descripcion:descripcion,
+                                  stock:stock,
+                                  precio:precio,
+                                  categoria: categoriasDB.map((cat) => cat._id),
+                                  url_image:url_image
+                                
+                                } },{new:true})
+                .then(()=> res.status(201).json({message : `Producto ${modelo} actualizado`}))
                 .catch((error)=> res.json({message : error})) ; 
 
 }
