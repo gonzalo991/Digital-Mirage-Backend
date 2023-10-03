@@ -1,11 +1,12 @@
 import	Producto from '../models/Producto.js';
+import	Categoria from '../models/Categoria.js';
 
 export const newProducto = async (req, res )=>{
-        const {categoria, modelo, marca, descripcion, stock, precio} = req.body;
-        const categoriasDB = await Role.find({name : categoria});
+        const {categoria, modelo, marca, descripcion, stock, precio, url_image} = req.body;
+        const categoriasDB = await Categoria.find({name : categoria});
     
     
-     const produc = new Producto({    
+     let produc = new Producto({    
 
         modelo,
         marca,
@@ -13,8 +14,9 @@ export const newProducto = async (req, res )=>{
         stock,  
         precio,     
         categoria: categoriasDB.map((cat) => cat._id),
+        url_image
       });
-    let productExist = await produc.find({modelo: modelo})
+    let productExist = await Producto.find({modelo: modelo})
  
     if(!productExist.length == 0) return res.json({message: 'El modelo ya existe'})
     
@@ -24,7 +26,7 @@ export const newProducto = async (req, res )=>{
 }
 export const getProductos = async (req, res )=>{
     await Producto.find()
-                .populate('categorias')
+                .populate('categoria')
                 .then((data)=> res.json(data))
                 .catch((error)=> res.json({message : error})) 
 }

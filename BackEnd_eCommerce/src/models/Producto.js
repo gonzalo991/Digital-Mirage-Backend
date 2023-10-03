@@ -24,6 +24,10 @@ const productoSchema = new Schema({
     precio:{
         type: Number,
         require: true
+    },
+    url_image:{
+        type: String,
+        require: true        
     }  
 
 },{timestamps:true ,

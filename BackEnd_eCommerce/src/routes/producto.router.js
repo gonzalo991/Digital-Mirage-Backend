@@ -1,3 +1,4 @@
+import { Router } from "express";
 const router = Router();
 
 import * as productoCtrl from '../controller/producto.controller'

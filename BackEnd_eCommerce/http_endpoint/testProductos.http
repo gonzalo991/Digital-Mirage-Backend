@@ -1,0 +1,18 @@
+@baseUrl = http://localhost:3055
+###
+GET {{baseUrl}}/productos HTTP/1.1
+
+###
+POST {{baseUrl}}/productos HTTP/1.1
+Content-Type: application/json
+
+{ 
+	"categoria":"TV", 
+    "modelo":"55 Neo QLED 4K QN85C",
+    "marca":"Samsung ",
+    "descripcion":"Procesador Neural Quantum 4K - Neo Slim",
+    "stock":5,  
+    
+    "precio":11,
+    "url_image":""
+}
