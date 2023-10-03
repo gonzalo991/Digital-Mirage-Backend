@@ -22,7 +22,7 @@ export const newProducto = async (req, res )=>{
                 .then((data)=> res.json(data))
                 .catch((error)=> res.json({message : error})) 
 }
-export const getProducto = async (req, res )=>{
+export const getProductos = async (req, res )=>{
     await Producto.find()
                 .populate('categorias')
                 .then((data)=> res.json(data))
