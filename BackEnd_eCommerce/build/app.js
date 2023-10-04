@@ -10,6 +10,8 @@ var _package = _interopRequireDefault(require("../package.json"));
 require("./database");
 var _initrialSetup = require("./libs/initrialSetup");
 var _user = _interopRequireDefault(require("./routes/user.routes"));
+var _categorias = _interopRequireDefault(require("./routes/categorias.router"));
+var _producto = _interopRequireDefault(require("./routes/producto.router"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var cors = require('cors');
 
@@ -17,9 +19,15 @@ var cors = require('cors');
 
 //
 var app = (0, _express["default"])();
-app.use(cors({
-  origin: "*"
-}));
+// app.use(cors({
+//     origin:"*"
+// }));
+app.use(function (req, res, next) {
+  res.setHeader('Acces-Control-Allow-Origin', '*');
+  res.setHeader('Acces-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Acces-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 (0, _initrialSetup.createRoles)(); //inicializa roles
 (0, _initrialSetup.createCategoria)(); //inicializa categorias
 app.use((0, _morgan["default"])('dev'));
@@ -36,5 +44,7 @@ app.get('/', function (req, res) {
 
 //llamo a la rutas
 app.use('/user', _user["default"]);
+app.use('/categorias', _categorias["default"]);
+app.use('/productos', _producto["default"]);
 //
 var _default = exports["default"] = app;

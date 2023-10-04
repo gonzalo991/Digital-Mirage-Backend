@@ -22,7 +22,7 @@ var productoSchema = new _mongoose.Schema({
     }
   },
   descripcion: {
-    type: String,
+    type: Object,
     require: true
   },
   stock: {
@@ -31,6 +31,10 @@ var productoSchema = new _mongoose.Schema({
   },
   precio: {
     type: Number,
+    require: true
+  },
+  url_image: {
+    type: String,
     require: true
   }
 }, {
