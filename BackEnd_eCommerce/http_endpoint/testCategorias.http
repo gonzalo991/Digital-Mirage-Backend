@@ -2,7 +2,7 @@
 @baseUrl_Remote = http://4.201.48.204:3055
 
 ###
-GET {{baseUrl_Remote}}/categorias HTTP/1.1
+GET {{baseUrl_local}}/categorias HTTP/1.1
 
 ###
 POST {{baseUrl_Remote}}/categorias HTTP/1.1
