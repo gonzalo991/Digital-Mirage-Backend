@@ -1,8 +1,8 @@
 "use strict";
 
-var mongoose = require('mongoose');
+var _mongoose = require("mongoose");
 var mongoURL = 'mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority';
-mongoose.connect(mongoURL, {
+(0, _mongoose.connect)(mongoURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(function () {
