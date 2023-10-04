@@ -44,6 +44,7 @@ app.get('/', function (req, res) {
 
 //llamo a la rutas
 app.use('/user', _user["default"]);
+_categorias["default"];
 app.use('/categorias', _categorias["default"]);
 app.use('/productos', _producto["default"]);
 //
