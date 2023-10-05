@@ -1,8 +1,8 @@
 FROM node:18.17 as development
 
-WORKDIR BackEnd_eCommerce/src/app.js
+WORKDIR BackEndeCommerce/src/app.js
 
-COPY BackEnd_eCommerce/package*.json ./
+COPY BackEndeCommerce/package*.json ./
 
 RUN npm install
 
