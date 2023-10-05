@@ -1,8 +1,8 @@
 FROM node:18.17 as development
-WORKDIR /src/app
+WORKDIR /app.js
 COPY package*.json ./
 RUN npm install
-COPY ./src ./src
+COPY . .
 CMD [ "npm", "run", "start:dev" ]
 
 
