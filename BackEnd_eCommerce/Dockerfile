@@ -1,4 +1,4 @@
-FROM node:18 as development
+FROM node:18.17 as development
 
 WORKDIR BackEnd_eCommerce/src/app.js
 
