@@ -1,6 +1,6 @@
 FROM node:18 as development
 
-WORKDIR BackEnd_eCommerce\src\app.js
+WORKDIR BackEnd_eCommerce/src/app.js
 
 COPY package*.json ./
 
