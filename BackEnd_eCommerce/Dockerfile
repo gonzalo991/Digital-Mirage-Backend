@@ -2,14 +2,14 @@ FROM node:18.17 as development
 
 WORKDIR BackEnd_eCommerce/src/app.js
 
-COPY BackEnd_eCommerce/package*.json ./
+COPY BackEnd_eCommerce/package*.json ./BackEnd_eCommerce/
 
 RUN npm install
 
 
 COPY . .
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "dev" ]
 
 
 # Usa una imagen base de Node.js
