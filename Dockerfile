@@ -1,15 +1,9 @@
 FROM node:18.17 as development
-
-WORKDIR app.js
-
-COPY package*.json ./
-
+WORKDIR /usr/src/app
+COPY package*.json tsconfig.json ./
 RUN npm install
-
-
-COPY . .
-
-CMD [ "npm", "run", "dev" ]
+COPY ./src ./src
+CMD [ "npm", "run", "start:dev" ]
 
 
 # Usa una imagen base de Node.js
