@@ -1,6 +1,6 @@
-FROM node:16-alphine
+FROM node:16.17 
 
-WORKDIR /app
+WORKDIR /app.js
 
 COPY package*.json ./
 
