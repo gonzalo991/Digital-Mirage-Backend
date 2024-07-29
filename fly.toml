@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for digital-mirage-backend on 2024-07-29T14:40:13-03:00
+# fly.toml app configuration file generated for digital-mirage-backend-old-shape-7317 on 2024-07-29T14:55:46-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'digital-mirage-backend'
+app = 'digital-mirage-backend-old-shape-7317'
 primary_region = 'eze'
 
 [build]
@@ -20,3 +20,8 @@ primary_region = 'eze'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+[env]
+  SECRET = elhobbit
+  HOST = 0.0.0.0
+  PORT = 3000
+  DB_URI = mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority
