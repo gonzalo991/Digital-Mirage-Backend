@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from 'morgan';
-const cors = require('cors');
+import cors from 'cors';
 import pkj from '../package.json';
 import './database';
 import { createRoles, createCategoria } from './libs/initrialSetup';
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 createRoles();//inicializa roles
 createCategoria();//inicializa categorias
 app.use(morgan('dev'));
-
+app.use(cors());
 app.use(express.json());
 
 ;
