@@ -21,7 +21,7 @@ primary_region = 'eze'
   cpu_kind = 'shared'
   cpus = 1
 [env]
-  SECRET = elhobbit
-  HOST = 0.0.0.0
+  SECRET = 'elhobbit'
+  HOST = '0.0.0.0'
   PORT = 3000
-  DB_URI = mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority
+  DB_URI = 'mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority'
