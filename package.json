@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir build",
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "babel-node build/index.js",
+    "start": "node -r dotenv/config build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

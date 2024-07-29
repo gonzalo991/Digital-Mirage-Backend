@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
+
 const ventaSchema = new Schema({
-    cliente:[{ type: Schema.Types.ObjectId, ref: "User" }], 
-    items:{
+    cliente: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    items: {
         type: Array,
         require: true
         /**
@@ -11,14 +12,14 @@ const ventaSchema = new Schema({
          * precio unitario
          * ]
          */
-        
+
     },
-    monto_total:{
+    monto_total: {
         type: Number,
         require: true,
-                     
+
     },
-    pyment:{
+    pyment: {
         type: Object,
         require: true
         //tipo de pago: credito/debito/efectivo/mercadopago/trensferencia
@@ -26,10 +27,12 @@ const ventaSchema = new Schema({
         //producto entregado: true/false
         //fecha_pago: date
 
-        
-    }
-     
 
-},{timestamps:true ,
-    versionKey:false});
+    }
+
+
+}, {
+    timestamps: true,
+    versionKey: false
+});
 export default model("Venta", ventaSchema);

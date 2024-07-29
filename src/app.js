@@ -2,8 +2,8 @@ import express from "express";
 import morgan from 'morgan';
 const cors = require('cors');
 import pkj from '../package.json';
-import './database'
-import {createRoles, createCategoria} from './libs/initrialSetup'
+import './database';
+import { createRoles, createCategoria } from './libs/initrialSetup';
 
 //import archivo rutas
 
@@ -15,10 +15,10 @@ const app = express();
 // app.use(cors({
 //     origin:"*"
 // }));
-app.use((req,res,next)=>{
-    res.setHeader('Acces-Control-Allow-Origin','*');
-    res.setHeader('Acces-Control-Allow-Methods','GET,POST,PUT,DELETE,OPTIONS');
-    res.setHeader('Acces-Control-Allow-Headers','Content-Type');
+app.use((req, res, next) => {
+    res.setHeader('Acces-Control-Allow-Origin', '*');
+    res.setHeader('Acces-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Acces-Control-Allow-Headers', 'Content-Type');
     next();
 })
 createRoles();//inicializa roles
@@ -28,20 +28,20 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 ;
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.json({
         "name": pkj.name,
         "version": pkj.version,
         "description": pkj.description,
-        "author":pkj.author
+        "author": pkj.author
 
     });
 })
 
 //llamo a la rutas
- app.use('/user',userRoutes);categoriaRoutes
-app.use('/categorias',categoriaRoutes)
- app.use('/productos',productosRoutes);
- //
+app.use('/user', userRoutes); categoriaRoutes
+app.use('/categorias', categoriaRoutes)
+app.use('/productos', productosRoutes);
+//
 
 export default app;

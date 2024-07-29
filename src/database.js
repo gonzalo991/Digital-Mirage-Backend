@@ -1,6 +1,8 @@
 import { connect } from 'mongoose';
+import config from './config';
 
-const mongoURL = 'mongodb+srv://StoneReadDL:LHYrMGwNoPLQIVRT@stone.wtobymf.mongodb.net/DigitalMirageDB?retryWrites=true&w=majority';
+
+const mongoURL = config.DB_URI;
 
 connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Conectado a MongoDB Atlas'))
