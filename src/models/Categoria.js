@@ -2,8 +2,7 @@ import { Schema, model } from "mongoose";
 //Coleccion para clsicar los productos : "smartphone", "notebook" 
 
 const categoriaSchema = new Schema({
-    name: String
-
+    name: {type: String}
 },{
     versionKey:false
 });
