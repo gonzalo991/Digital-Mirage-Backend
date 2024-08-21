@@ -31,14 +31,17 @@ export const deleteCategorias = async (req, res) => {
 
 export const getCategoriaByName = async (req, res) => {
   try {
-    const name = req.params;
-    const response = await Categoria.find({ name: name });
-    if (response) {
-      return response;
+    const { name } = req.params; // Extraer correctamente el parámetro 'name' de la URL
+    const response = await Categoria.find({ name: name }); // Buscar la categoría por nombre
+
+    if (response.length > 0) { // Verificar si se encontraron categorías
+      return res.json(response); // Devolver las categorías encontradas
+    } else {
+      return res.status(404).json({ message: "Categoría no encontrada" });
     }
   } catch (err) {
-    console.log(err("No se encontro la categoria seleccionada"));
-    res.status(400).json({ message: "Categoria no encontrada" });
+    console.error("Error al buscar la categoría:", err); // Loguear el error correctamente
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }
 
