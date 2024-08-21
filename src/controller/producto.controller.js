@@ -59,10 +59,10 @@ export const getProductoById = async (req, res) => {
 
 export const getProductoByCategoria = async (req, res) => {
   try {
-    const { categoria } = req.params;
+    const { name } = req.params;
 
-    // Buscar la categoría en la base de datos
-    const categoriaDB = await Categoria.find({ name: categoria });
+    // Buscar una categoría por nombre
+    const categoriaDB = await Categoria.findOne({ name });
 
     // Si no se encuentra la categoría, devolver un error
     if (!categoriaDB) {
@@ -74,11 +74,11 @@ export const getProductoByCategoria = async (req, res) => {
       .populate('categoria');
 
     // Devolver los productos encontrados
-    res.json(productos);
+    return res.json(productos);
   } catch (error) {
     // Manejar errores y devolver una respuesta
-    console.error(error);
-    res.status(500).json({ message: 'Error al buscar productos por categoría' });
+    console.error('Error al buscar productos por categoría:', error);
+    return res.status(500).json({ message: 'Error al buscar productos por categoría' });
   }
 }
 
