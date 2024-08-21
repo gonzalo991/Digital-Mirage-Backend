@@ -62,7 +62,7 @@ export const getProductoByCategoria = async (req, res) => {
     const { categoria } = req.params;
 
     // Buscar la categoría en la base de datos
-    const categoriaDB = await Categoria.findOne({ name: categoria });
+    const categoriaDB = await Categoria.find({ name: categoria });
 
     // Si no se encuentra la categoría, devolver un error
     if (!categoriaDB) {
