@@ -33,20 +33,18 @@ export const getProductos = async (req, res) => {
 }
 
 export const getProductByKeyword = async (req, res) => {
-  const { keyword } = req.params;
-  const regex = new RegExp(keyword, 'i');
-
   try {
+    const { keyword } = req.params;
+    const regex = new RegExp(keyword, 'i');
     const productos = await Producto.find({
       $or: [
         { marca: { $regex: regex } },
-        { descripcion: { $regex: regex } },
         { modelo: { $regex: regex } }
       ]
     });
     res.status(200).json(productos);
   } catch (err) {
-    console.error(error);
+    console.error(err);
     res.status(500).json({ message: 'Error al realizar la búsqueda' });
   }
 }
