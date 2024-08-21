@@ -8,6 +8,7 @@ router.post('/', productoCtrl.newProducto);
 router.get('/', productoCtrl.getProductos);
 router.get('/byid/:productoId', productoCtrl.getProductoById);
 router.get('/categoria/:categoria', productoCtrl.getProductoByCategoria);
+router.get('/buscar/:keyword', productoCtrl.getProductByKeyword);
 router.delete('/:productoId', productoCtrl.deleteProducto);
 router.put('/', productoCtrl.updateProducto);
 

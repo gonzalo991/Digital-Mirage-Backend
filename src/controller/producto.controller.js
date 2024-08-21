@@ -24,12 +24,33 @@ export const newProducto = async (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }))
 }
+
 export const getProductos = async (req, res) => {
   await Producto.find()
     .populate('categoria')
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }))
 }
+
+export const getProductByKeyword = async (req, res) => {
+  const { keyword } = req.params;
+  const regex = new RegExp(keyword, 'i');
+
+  try {
+    const productos = await Producto.find({
+      $or: [
+        { marca: { $regex: regex } },
+        { descripcion: { $regex: regex } },
+        { modelo: { $regex: regex } }
+      ]
+    });
+    res.status(200).json(productos);
+  } catch (err) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al realizar la búsqueda' });
+  }
+}
+
 export const getProductoById = async (req, res) => {
   const { productoId } = req.params;
   await Producto.findById(productoId)
@@ -37,6 +58,7 @@ export const getProductoById = async (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }))
 }
+
 export const getProductoByCategoria = async (req, res) => {
   const { categoria } = req.params;
   const categoriaDB = await Categoria.find({ name: categoria });
@@ -46,6 +68,7 @@ export const getProductoByCategoria = async (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }))
 }
+
 export const deleteProducto = async (req, res) => {
   const { productoId } = req.params;
 
@@ -53,20 +76,11 @@ export const deleteProducto = async (req, res) => {
     .then(() => res.status(201).json({ message: `Producto ${productoId} eliminado` }))
     .catch((error) => res.json({ message: error }));
 }
+
 export const updateProducto = async (req, res) => {
 
   const { _id, categoria, modelo, marca, descripcion, stock, precio, url_image } = req.body;
   const categoriasDB = await Categoria.find({ name: categoria });
-  // let produc = new Producto({    
-
-  //   modelo,
-  //   marca,
-  //   descripcion, 
-  //   stock,  
-  //   precio,     
-  //   categoria: categoriasDB.map((cat) => cat._id),
-  //   url_image
-  // });
 
   await Producto.findByIdAndUpdate(_id,
     {
