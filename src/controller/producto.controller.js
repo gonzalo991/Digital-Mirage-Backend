@@ -57,31 +57,6 @@ export const getProductoById = async (req, res) => {
     .catch((error) => res.json({ message: error }))
 }
 
-export const getProductoByCategoria = async (req, res) => {
-  try {
-    const { name } = req.params;
-
-    // Buscar una categoría por nombre
-    const categoriaDB = await Categoria.findOne({ name });
-
-    // Si no se encuentra la categoría, devolver un error
-    if (!categoriaDB) {
-      return res.status(404).json({ message: 'Categoría no encontrada' });
-    }
-
-    // Buscar productos que tengan la categoría en su array de categorías
-    const productos = await Producto.find({ categoria: { $in: [categoriaDB._id] } })
-      .populate('categoria');
-
-    // Devolver los productos encontrados
-    return res.json(productos);
-  } catch (error) {
-    // Manejar errores y devolver una respuesta
-    console.error('Error al buscar productos por categoría:', error);
-    return res.status(500).json({ message: 'Error al buscar productos por categoría' });
-  }
-}
-
 export const deleteProducto = async (req, res) => {
   const { productoId } = req.params;
 
